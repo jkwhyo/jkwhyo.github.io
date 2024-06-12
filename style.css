@@ -1,0 +1,240 @@
+section {
+    padding: 20px 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+
+    /* inherits the colour of its parent */
+    color: inherit;
+    cursor: pointer;
+}
+
+.nav-link {
+    color: inherit;
+}
+
+.no-link {
+    color: inherit;
+}
+
+/* CHATGPT FixedSidebar */
+.sidebar {
+    height: 100vh;
+    width: 60px;
+    position: fixed;
+    top: 50;
+    left: 0;
+    background-color: #e6e6e613;
+    padding-top: 10px;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+    color: #818181;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menu-item i {
+    font-size: 24px;
+}
+
+.menu-item span {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.menu-item:hover {
+    color: #f1f1f1;
+}
+
+.carousel-inner {
+    position: relative;
+    z-index: -1;
+}
+
+.carousel-indicators {
+    visibility: hidden;
+}
+
+#title {
+    margin-top: 50px;
+}
+
+/* styling for film categories */
+.film-categories {
+    padding-top: 50px;
+    padding-bottom: 2px;
+}
+
+/* styling for view all buttons */
+#content-btn {
+    margin-bottom: 10px;
+}
+
+/* styling for cards */
+.card {
+    text-align: center;
+    height: 100%;
+    z-index: 1;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #333;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.filter-btn {
+    margin-right: 5px;
+}
+
+/* CSS for drama details view */
+#drama-details {
+    padding: 20px 0;
+}
+
+/* styling for the main div/container */
+#drama-details-content {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+
+/* styling for the drama image inside the main div */
+.details-content img {
+    max-height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* The styling below was retrieved from w3 schools  for the scroll-to-top button  (How to Create a Scroll Back to Top Button, n.d.)*/
+#myBtn {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Fixed/sticky position */
+    bottom: 20px;
+    /* Place the button at the bottom of the page */
+    right: 30px;
+    /* Place the button 30px from the right */
+    z-index: 99;
+    /* Make sure it does not overlap */
+    border: none;
+    /* Remove borders */
+    outline: none;
+    /* Remove outline */
+    background-color: #2624af;
+    /* Set a background color */
+    color: white;
+    /* Text color */
+    cursor: pointer;
+    /* Add a mouse pointer on hover */
+    padding: 15px;
+    /* Some padding */
+    border-radius: 10px;
+    /* Rounded corners */
+    font-size: 18px;
+    /* Increase font size */
+}
+
+/* pin styling */
+#pin-img {
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: 3;
+    /* height:100%; */
+}
+
+/* centred the text in the pins */
+.caption {
+    padding-top: 10px;
+    text-align: center;
+}
+
+
+/* Hide screen views by defualt*/
+.d-none {
+    display: none;
+}
+
+
+
+/* when screen is bigger than 700px, give a margin of 60px to the main content */
+@media screen and (min-width: 700px) {
+
+    /* moves the 'view-all' buttons to the very right of the screen */
+    #content-btn {
+        margin-left: 94.5%;
+    }
+
+    /* styling of the img in details-content */
+    .details-content img {
+        max-height: 26vh;
+        object-fit: cover;
+        width: 20%;
+        float: left;
+        margin-right: 15px;
+    }
+
+    .caption {
+        /* display: none; */
+        padding-bottom: 20px;
+    }
+}
+
+/* when screen is smaller than 700px,  */
+@media screen and (max-width: 700px) {
+    #discover {
+        padding-top: 0px;
+    }
+
+    .carousel-heading {
+        font-size: 36px;
+        font-weight: 2;
+    }
+
+    .carousel {
+        padding: 5px;
+        margin-top: 30px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .pin_card {
+        margin-top: 60px;
+        margin-bottom: 10px;
+    }
+
+}
