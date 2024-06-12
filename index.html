@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dramanimo</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- This pinterest grid layout code belongs to (An Object Is A, 2021). -->
+    <style>
+        /* variables for pin_container layout retrieved from original src:  */
+        /* Changed card sizes */
+        :root {
+            --card_width: 350px;
+            --row_increment: 12px;
+            --card_border_radius: 5px;
+            --card_small: 26;
+            --card_medium: 33;
+            --card_large: 60;
+        }
+
+        /* I modified the code by changing the pin background to white */
+        .pin_container {
+            margin-top: 15px;
+            margin: 15px;
+            width: 100vw;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, var(--card_width));
+            grid-auto-rows: var(--row_increment);
+            justify-content: center;
+            border-radius: 10px;
+
+            background-color: rgb(245, 245, 247);
+        }
+
+        /* I modified the code by changing the margin size, and adding a transition */
+        .pin_card {
+            border: 1px solid;
+            padding: 0;
+            margin: 20px 5px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+            border-radius: 10px;
+            background-color: rgb(252, 249, 249);
+        }
+
+        /* I  added a hover effect */
+        /* i modified the code so that the cards' border turns purple and the card grows bigger when hovered upon */
+        .pin_card:hover {
+            transform: scale(1.05);
+            border-color: #520eff;
+            cursor: pointer;
+        }
+
+        .card_small {
+            grid-row-end: span var(--card_small);
+        }
+
+        .card_medium {
+            grid-row-end: span var(--card_medium);
+        }
+
+        .card_large {
+            grid-row-end: span var(--card_large);
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#discover">
+            <span class="fw-bold text-secondary">
+                Dramanimo
+            </span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#discover">Discover</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#for-you">For You</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#watchlist">Watch List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Help</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- do not display search bar on smaller screens -->
+        <form class="d-none d-md-inline" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search Drama, Movie, Anime" aria-label="Search">
+        </form>
+    </nav>
+
+
+    <!-- CHATGPT-sidebar -->
+    <div class="sidebar d-none d-md-inline">
+
+        <!-- bootstrap offcanvas nav-->
+        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling" navbar-toggler-icon>More</button>
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+            id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <form class="d-flex  d-none d-md-inline" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search any Drama, Movie, or Anime name"
+                        aria-label="Search">
+                </form>
+                <br>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#user-profile">User Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#discover">Discover</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#for-you">For You</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#watchlist">Watch List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#help">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <a class="nav-link" href="#discover">
+                <!-- font awesome search icon -->
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+        </div></a>
+        <div class="menu-item">
+            <a class="nav-link" href="#for-you">
+                <!-- font awesome person icon -->
+                <i class="fas fa-user"></i>
+                <span>For You</span>
+        </div></a>
+
+    </div>
+
+
+
+    <div class="content container-lg">
+        <!-- Discover Page Content -->
+        <section id="discover">
+
+             <!-- Bootstrap carousel -->
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-7  text-md-start">
+                                <h1>
+                                    <div class="carousel-heading display-2"> Lost You Forever (2023)</div>
+                                </h1>
+                                <p class="text-muted"> A long time ago, the little girl was separated from her royal
+                                    brother. Now as adults, they have their own lives but the royal brother has
+                                    never
+                                    stopped searching for her. She, who has lost her real face from a traumatic
+                                    accident, now
+                                    lives as a man and village doctor attending to the mortal realm's residents! Will
+                                    Jiuyao's royal brother, ever be able to find her? </p>
+                            </div>
+                            <div class="col-md-5 text-end">
+                                <img class="img d-none d-md-inline" src="assets/lost-you-forever-2.jpg"
+                                    alt="drama cover" height="398px">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-7  text-md-start">
+                                <h1>
+                                    <div class="carousel-heading display-2">Sinkhole (2021)</div>
+                                </h1>
+                                <p class="text-muted"> Park Dong Won, a common man, and his family move into a house
+                                    purchased after 11 years of labor. They throw a housewarming party and invite all
+                                    their friends. A heavy overnight downpour creates an extremely big sinkhole, and in
+                                    a mere minute, it engulfs the whole house with the people inside it. Deep down the
+                                    hole, Park Dong Won, his neighbor Jeong Man Soo, and the guests have to find a way
+                                    out. As the luck would have it rain again begins to pour down, filling the sinkhole
+                                    with water. They must find out a solution before time runs out to survive.
+                                </p>
+                            </div>
+                            <div class="col-md-5 text-end ">
+                                <img class="img  d-none d-md-inline" src="assets/sinkhole.jpg" alt="drama cover"
+                                    height="398px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-7  text-md-start">
+                                <h1>
+                                    <div class="carousel-heading display-2">Spy × Family Code: White (2024)</div>
+                                </h1>
+                                <p class="text-muted">After learning of a cooking contest that awards the winning
+                                    student with a Stella
+                                    Star, Loid researches the judge's preferred dessert to help increase Anya's odds.
+                                    However, perfectly recreating the judge's favorite meremere requires more than just
+                                    following a recipe. Thus, the Forgers embark on a vacation to the Frigis region to
+                                    try
+                                    an authentic meremere. Not all goes smoothly on the trip, as the Forger family ends
+                                    up
+                                    entwined in a sinister plot to reignite war between the countries of Ostania and
+                                    Westalis.
+                                </p>
+                            </div>
+                            <div class="col-md-5 text-end ">
+                                <img class="img  d-none d-md-inline" src="assets/spy-family.jpg" alt="drama cover"
+                                    height="398px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                
+            </div>
+
+                <!-- start of main content: Film Category Filters -->
+                <div class="film-categories">
+                    <a href="#" class="btn btn-outline-primary btn-sm">
+                        <h1>Drama</h1>
+                    </a>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                        <h1>Movie</h1>
+                    </a>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                        <h1>Anime</h1>
+                    </a>
+                </div>
+
+                <!-- main content: -->
+                <div class="main-content">
+
+                    <!--main content: recently updated & coming soon-->
+                    <div class="updatesoon">
+                        <div class="updates">
+                            <h2 id="title">Recently Updated </h2>
+                            <button class="btn btn-sm btn-outline-secondary" id="content-btn">View All</button>
+
+                            <!-- row containing recently updated dramas in grid layout -->
+                            <div class="row row-cols-2 row-cols-md-5 g-3">
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/the-atypical-family.jpg" class="card-img-top"
+                                            alt="the atypical family cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">The Atypical Family</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/high-school-return-of-a-gangster.jpg" class="card-img-top"
+                                            alt="high school return of a gangster cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">High School Return of a Gangster</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 30 mins ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/the-double.jpg" class="card-img-top"
+                                            alt="The Double cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">The Double</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 1 hr ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/the-midnight-romance-in-hagwon.jpg" class="card-img-top"
+                                            alt="the midnight romance in hagwon cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">The Midnight Romance in Hagwon</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 1 day ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/best-choice-ever.jpg" class="card-img-top"
+                                            alt="Best Choice Ever cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Best Choice Ever</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 2 days ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/dreaming-of-a-freaking-fairtytale.jpg" class="card-img-top"
+                                            alt="Dreaming of a freaking fairytale cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Dreaming of a Freaking Fairytale</h5>
+                                            </a>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated a week ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="upcoming">
+                            <h2 id="title">Coming Soon </h2>
+                            <button class="btn btn-sm btn-outline-secondary" id="content-btn">View All</button>
+
+                            <!-- row containing upcoming dramas in grid layout-->
+                            <div class="row row-cols-2 row-cols-md-5 g-3">
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/hierarchy.jpg" class="card-img-top"
+                                            alt="Hierarchy Cover Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Hierarchy</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">June 7</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/the-tale-of-rose.jpg" class="card-img-top"
+                                            alt="The Tale of Rose Cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">The Tale of Rose</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">June 8</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card h-100">
+                                        <img src="assets/Game-no-na-wa-yukai.jpg" class="card-img-top"
+                                            alt="The name of the game is a kidnapping cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">The Name of the Game is a Kidnapping</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">June 9</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/my-sweet-mobster.jpg" class="card-img-top"
+                                            alt="my sweet mobster cover image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">My Sweet Mobster</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Jun 12</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card">
+                                        <img src="assets/lyf2.jpg" class="card-img-top"
+                                            alt="Lost You Forever 2 cover Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Lost You Forever 2</h5>
+                                            </a>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">July 10</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="card h-100">
+                                        <img src="assets/Minami-kun's Lover.jpg" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> Minami-kun's Lover</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">July 16</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="filterbar">
+                        <h2 id="title">All Dramas</h2><br>
+                        <div class="btn-group-horizontal w-100">
+                            <button class="btn btn-outline-primary filter-btn" data-filter="top-rated">Top
+                                Rated</button>
+                            <button class="btn btn-outline-primary filter-btn" data-filter="top-rated">Trending</button>
+                            <button class="btn btn-outline-primary filter-btn" data-filter="romance">Romance</button>
+                            <button class="btn btn-outline-primary filter-btn"
+                                data-filter="historical">Historical</button>
+                            <button class="btn btn-outline-primary filter-btn" data-filter="action">Action</button>
+                            <button class="btn btn-outline-primary filter-btn" data-filter="thriller">Thriller</button>
+                            <button class="btn btn-outline-primary filter-btn" data-filter="wuxia">Wuxia</button>
+                            <button class="btn btn-outline-primary"> Korean </button>
+                            <button class="btn btn-outline-primary"> Chinese </button>
+                            <button class="btn btn-outline-primary"> Japanese </button>
+                            <button class="btn btn-outline-primary"> Taiwanese </button>
+
+                            <button class="btn btn-outline-secondary" id="content-btn">More Genres:</button>
+                        </div>
+                    </div>
+
+                    <!-- Grid of clickable dramas generated through javascript -->
+                    <div id="content" class="mt-4"></div>
+
+                    <!-- scroll-to-top button retrieved from W3 schools (How to Create a Scroll Back to Top Button, n.d.)-->
+                    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+
+        </section>
+
+        <!-- DRAMA DETAILS -->
+        <!-- content for drama details generated in javascript -->
+        <section id="drama-details" class="d-none">
+            <button id="back-to-discover" class="btn btn-outline-secondary mb-3">Back to Discover</button>
+            <button id="back-to-watchlist" class="btn btn-outline-secondary mb-3">Back to Watch List</button>
+            <!-- Drama details content -->
+            <div id="drama-details-content" class="details-content">
+            </div>
+
+        </section>
+
+        <section id="for-you" class="d-none">
+            <h2>Watch Activity</h2><br>
+            <div class="row">
+
+                <!-- Total films watched/is watching -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">4</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Total</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Dramas watched/is-watching -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">4</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Drama</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Movies watched/is-watching-->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">0</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Movie</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Anime watched/is-watching -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">0</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Anime</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Graph -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Total Consumption</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Dropdown Header:</div>
+                                    <a class="dropdown-item" href="#">By Month</a>
+                                    <a class="dropdown-item" href="#">By Year</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <img src="assets/Genre(2).png" class=" img-fluid Total_consumption_graph"
+                                    alt="total consumption graph of films watched/watching">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">User Preferences</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-header">Dropdown Header:</div>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">By Genre</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">By country</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <img src="assets/Genre.png" class="img-fluid Total_consumption_graph"
+                                    alt="total consumption graph of films watched/watching">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
+
+            <!-- Recommendations section with pinterest inspired layout -->
+            <div class="recommendations">
+                <h2> Recommendations</h2>
+
+                <!-- Bootstrap buttons plugin -->
+                <div class="btn-group btn-group-lg btn-outline align-items-center" role="group">
+                    <button type="button" class="btn btn-outline-primary">All</button>
+                    <button type="button" class="btn btn-outline-primary active">Drama</button>
+                    <button type="button" class="btn btn-outline-primary">Movie</button>
+                    <button type="button" class="btn btn-outline-primary">Anime</button>
+                </div>
+
+                <!-- the code below belongs to A (2022) -->
+                <!--I modified the code by making the corners rounded, changing the box sizes and adding images with names underneath. I have also changed some class names -->
+                <div class="pin_container container mb-4">
+
+                    <div class="pin_card card_medium">
+                        <img src="assets/untamed_2.jpg" id="pin-img" alt="Mo Dao Zu Shi anime cover image" width=100%
+                            height=80%>
+                        <div class="caption">
+                            <p><b> Mo Dao Zu Shi: The Anime version of The Untamed </b></p>
+                        </div>
+                    </div>
+
+                    <div class="pin_card card_medium">
+                        <img src="assets/heaven's-blessing.jpg" id="pin-img" alt="Heaven's Blessing anime cover image"
+                            width=100% height=80%>
+                        <div class="caption">
+                            <p><b>Heaven's Blessing: Similar to The Untamed (Danmei) </b></p>
+                        </div>
+                    </div>
+
+                    <div class="pin_card card_large">
+                        <img src="assets/immortality.jpg" id="pin-img" alt="immortality drama cover image" width=100%
+                            height=90%>
+                        <div class="caption">
+                            <p><b>Immortality: Similar to the Untamed (Wuxia) </b></p>
+                        </div>
+                    </div>
+                    <div class="pin_card card_medium">
+                        <img src="assets/our-secret.jpg" id="pin-img" alt="Our secret drama cover image" width=100%
+                            height="87%">
+                        <div class="caption">
+                            <p><b>Our Secret: Similar to Hidden Love </b></p>
+                        </div>
+                    </div>
+                    <div class="pin_card card_large">
+                        <img src="assets/put-my-head-on-your-shoulder.jpg" id="pin-img"
+                            alt="put my head on your shoulder drama cover image" width=100% height=90%>
+                        <div class="caption">
+                            <p><b>Put My Head On Your Shoulder: Similar to Hidden Love </b></p>
+                        </div>
+                    </div>
+                    <div class="pin_card card_medium">
+                        <img src="assets/first-frost.jpg" id="pin-img" alt="first frost manhua cover image" width=100%
+                            height=80%>
+                        <div class="caption">
+                            <p><b> First Frost: Hidden Love's Sang Yan's Love Story </b></p>
+                        </div>
+                    </div>
+                    <div class="pin_card card_large">
+                        <img src="assets/immortal-samsara.jpg" id="pin-img" alt="immortal samsara drama cover image"
+                            width=100% height=85%>
+                        <div class="caption">
+                            <p><b>Immortal Samasara: Romance, Wuxia Drama with the same Male Lead as Mysterious Lotus
+                                    Casebook</b></p>
+                        </div>
+                    </div>
+
+
+                    <!-- scroll-to-top button retrieved from W3 schools (How to Create a Scroll Back to Top Button, n.d.)-->
+                    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+                    <!-- The Javascript code was retrieved from W3 schools (How to Create a Scroll Back to Top Button, n.d.) -->
+                    <script src="scrolltotop.js"></script>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- class="d-none" -->
+        <section id="watchlist" class="container d-none">
+            <h2>Watch List</h2><br>
+
+            <div class="row">
+
+                <!-- Total Planned -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">2</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Planned</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Watching -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">2</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Watching</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total watched -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">0</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Watched</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Favourited-->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h2 mb-0 font-weight-bold text-gray-800">0</div>
+                                    <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                        Favourited</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><br>
+
+            <div class="film-categories">
+                <a href="#" class="btn btn-outline-primary btn-sm">
+                    <h1>Drama</h1>
+                </a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">
+                    <h1>Movie</h1>
+                </a>
+                <a href="#" class="btn btn-outline-secondary btn-sm">
+                    <h1>Anime</h1>
+                </a>
+            </div><br>
+
+            <div class="row" id="watchlist-content">
+                <!-- Watchlist items will be inserted here by JavaScript -->
+            </div>
+
+        </section>
+
+
+
+    </div>
+
+
+
+    <!-- Include jQuery for carousel and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
